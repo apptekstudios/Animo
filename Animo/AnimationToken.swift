@@ -20,7 +20,8 @@ public final class AnimationToken {
     self.animationLayer = animationLayer
     self.onCompletion = onCompletion
   }
-  func cancelAnimation(ignoringCompletionBlock ignoreCompletion: Bool = false) {
+  
+  public func cancelAnimation(ignoringCompletionBlock ignoreCompletion: Bool = false) {
     if ignoreCompletion {
       onCompletion = nil
     }
