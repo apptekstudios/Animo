@@ -31,20 +31,15 @@ public extension CALayer {
     
     
     // MARK: Public
-    
-    public func runAnimation(_ animation: LayerAnimation, forKey key: String = UUID().uuidString) -> String {
-        
-        self.add(animation.copyObject(), forKey: key)
-        return key
-    }
-    
-    public func runAnimation(_ animation: LayerAnimation, forKey key: String = UUID().uuidString, completion: @escaping () -> Void) -> String {
-        
+  public func runAnimation(_ animation: LayerAnimation, forKey key: String = UUID().uuidString, completion: (() -> Void)? = nil) -> AnimationToken {
+    let token = AnimationToken(key: key, animationLayer: self, onCompletion: completion)
         CATransaction.begin()
-        CATransaction.setCompletionBlock(completion)
+        CATransaction.setCompletionBlock({
+            token.onCompletion?() //Implicit capture of token
+        })
         self.add(animation.copyObject(), forKey: key)
         CATransaction.commit()
-        return key
+        return token
     }
     
     public func pauseAnimations() {
@@ -79,7 +74,7 @@ public extension CALayer {
         self.beginTime = elapsedTime
     }
     
-    public func runTransition(_ type: Transition = .fade, duration: TimeInterval = 0, timingMode: TimingMode = .linear, options: Options = Options(fillMode: [], removedOnCompletion: true)) {
+    public func runTransition(_ type: Transition = .fade, duration: TimeInterval = 0, timingMode: TimingMode = .linear, options: Options = Options(fillMode: CAMediaTimingFillMode.removed, removedOnCompletion: true)) {
         
         let transition = CATransition()
         type.applyTo(transition)

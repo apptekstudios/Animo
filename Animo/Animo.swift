@@ -69,7 +69,7 @@ public enum Animo {
     
     public static func wait(_ duration: TimeInterval) -> LayerAnimation {
         
-        return LayerAnimation(object: CABasicAnimation(), span: .constant(duration), timingMode: .linear, options: Options(fillMode: [], removedOnCompletion: true))
+        return LayerAnimation(object: CABasicAnimation(), span: .constant(duration), timingMode: .linear, options: Options(fillMode: .removed, removedOnCompletion: true))
     }
     
     
