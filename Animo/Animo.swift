@@ -69,7 +69,7 @@ public enum Animo {
     
     public static func wait(_ duration: TimeInterval) -> LayerAnimation {
         
-        return LayerAnimation(object: CABasicAnimation(), span: .constant(duration), timingMode: .linear, options: Options(fillMode: [], removedOnCompletion: true))
+        return LayerAnimation(object: CABasicAnimation(), span: .constant(duration), timingMode: .linear, options: Options(fillMode: .removed, removedOnCompletion: true))
     }
     
     
@@ -264,8 +264,14 @@ public enum Animo {
         
         return self.property(LayerKeyPath.opacity, from: from, by: by, to: to, duration: duration, timingMode: timingMode, options: options)
     }
-    
-    
+
+
+    // MARK: Change Background Color
+    public static func changeBackgroundColor(from: CGColor? = nil, to: CGColor? = nil, duration: TimeInterval, timingMode: TimingMode = .linear, options: Options = .default) -> LayerAnimation {
+
+        return self.property(LayerKeyPath.backgroundColor, from: from, by: nil, to: to, duration: duration, timingMode: timingMode, options: options)
+    }
+
     // MARK: Custom Animations
     
     public static func keyPath<T: KeyframeValueConvertible>(_ keyPath: String, from: T? = nil, by: T? = nil, to: T? = nil, duration: TimeInterval, timingMode: TimingMode = .linear, options: Options = .default) -> LayerAnimation {
@@ -290,6 +296,7 @@ public enum Animo {
         static let scaleY = "transform.scale.y"
         static let scaleZ = "transform.scale.z"
         static let opacity = "opacity"
+        static let backgroundColor = "backgroundColor"
     }
     
     fileprivate static func property<T: KeyframeValueConvertible>(_ keyPath: String, from: T? = nil, by: T? = nil, to: T? = nil, duration: TimeInterval, timingMode: TimingMode, options: Options) -> LayerAnimation {

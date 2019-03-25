@@ -35,36 +35,10 @@ public struct Options {
     
     public static let `default` = Options()
     
-    public struct FillMode: OptionSet {
-        
-        public static let forwards = FillMode(rawValue: 1)
-        public static let backwards = FillMode(rawValue: 2)
-        public static let none: FillMode = []
-        public static let both: FillMode = [.forwards, .backwards]
-        
-        public init(rawValue: Int) {
-            
-            self.rawValue = rawValue
-        }
-        
-        public let rawValue: Int
-    }
-    
-    public init(speed: CGFloat = 1, fillMode: FillMode = .both, removedOnCompletion: Bool = false) {
-        
-        func valueForCAAnimation(_ fillMode: FillMode) -> String {
-            
-            switch fillMode {
-                
-            case FillMode.forwards: return kCAFillModeForwards
-            case FillMode.backwards: return kCAFillModeBackwards
-            case FillMode.both: return kCAFillModeBoth
-            default: return kCAFillModeRemoved
-            }
-        }
+    public init(speed: CGFloat = 1, fillMode: CAMediaTimingFillMode = .both, removedOnCompletion: Bool = false) {
         
         self.speed = speed
-        self.fillMode = valueForCAAnimation(fillMode)
+        self.fillMode = fillMode
         self.removedOnCompletion = removedOnCompletion
     }
     
@@ -72,6 +46,6 @@ public struct Options {
     // MARK: Internal
     
     internal let speed: CGFloat
-    internal let fillMode: String
+    internal let fillMode: CAMediaTimingFillMode
     internal let removedOnCompletion: Bool
 }

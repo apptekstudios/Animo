@@ -37,7 +37,7 @@ public struct LayerAnimation {
     public let accumulatedDuration: TimeInterval
     public let baseDuration: TimeInterval
     
-    public func runOnLayer(_ layer: CALayer, withKey key: String = UUID().uuidString) -> String {
+    public func runOnLayer(_ layer: CALayer, withKey key: String = UUID().uuidString) -> AnimationToken {
         
         return layer.runAnimation(self, forKey: key)
     }

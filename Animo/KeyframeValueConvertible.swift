@@ -267,6 +267,11 @@ extension NSObject: KeyframeValueConvertible {
     }
     
 #else
+    extension CGColor : KeyframeValueConvertible {
+
+        public var valueForAnimationKeyframe: AnyObject { return self }
+    }
+
     extension UIColor /* : KeyframeValueConvertible */ {
         
         public override var valueForAnimationKeyframe: AnyObject { return self.cgColor }
