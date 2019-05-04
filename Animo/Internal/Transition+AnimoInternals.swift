@@ -34,7 +34,7 @@ internal extension Transition {
     
     // MARK: Internal
     
-    internal func applyTo(_ object: CATransition) {
+	func applyTo(_ object: CATransition) {
         switch self {
             
         case .fade:

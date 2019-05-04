@@ -31,7 +31,7 @@ public extension CALayer {
     
     
     // MARK: Public
-  public func runAnimation(_ animation: LayerAnimation, forKey key: String = UUID().uuidString, completion: (() -> Void)? = nil) -> AnimationToken {
+	func runAnimation(_ animation: LayerAnimation, forKey key: String = UUID().uuidString, completion: (() -> Void)? = nil) -> AnimationToken {
     let token = AnimationToken(key: key, animationLayer: self, onCompletion: completion)
         CATransaction.begin()
         CATransaction.setCompletionBlock({
@@ -42,18 +42,18 @@ public extension CALayer {
         return token
     }
     
-    public func pauseAnimations() {
+	func pauseAnimations() {
         
         self.speed = 0
         self.timeOffset = self.convertTime(CACurrentMediaTime(), from: nil)
     }
     
-    public func resumeAnimations() {
+	func resumeAnimations() {
         
         self.resumeAnimationsAtSpeed(1)
     }
     
-    public func resumeAnimationsAtSpeed(_ newSpeed: Float) {
+	func resumeAnimationsAtSpeed(_ newSpeed: Float) {
         
         let pausedTime = self.timeOffset
         
@@ -74,7 +74,7 @@ public extension CALayer {
         self.beginTime = elapsedTime
     }
     
-    public func runTransition(_ type: Transition = .fade, duration: TimeInterval = 0, timingMode: TimingMode = .linear, options: Options = Options(fillMode: CAMediaTimingFillMode.removed, removedOnCompletion: true)) {
+	func runTransition(_ type: Transition = .fade, duration: TimeInterval = 0, timingMode: TimingMode = .linear, options: Options = Options(fillMode: CAMediaTimingFillMode.removed, removedOnCompletion: true)) {
         
         let transition = CATransition()
         type.applyTo(transition)
